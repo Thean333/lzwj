@@ -1,30 +1,49 @@
 package by.dev.madhead.lzwj;
 
+import java.awt.EventQueue;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import by.dev.madhead.lzwj.compress.LZW;
+import by.dev.madhead.lzwj.gui.MainFrame;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
 		try {
-			if (args.length < 3) {
-				System.out.println("You must specify operation and files.");
+			if (args.length < 1) {
+				System.err.println("You must specify at least one option!");
 				System.exit(0);
 			}
-			if ("c".equals(args[0])) {
-				FileInputStream in = new FileInputStream(args[1]);
-				FileOutputStream out = new FileOutputStream(args[2]);
-				LZW lzw = new LZW();
+			if ("g".equals(args[0])) {
+				EventQueue.invokeLater(new Runnable() {
 
-				lzw.compress(in, out);
-			} else if ("d".equals(args[0])) {
-				FileInputStream in = new FileInputStream(args[1]);
-				FileOutputStream out = new FileOutputStream(args[2]);
-				LZW lzw = new LZW();
+					@Override
+					public void run() {
+						MainFrame mf = new MainFrame();
 
-				lzw.decompress(in, out);
+						mf.setVisible(true);
+					}
+				});
+			} else {
+				if (args.length < 3) {
+					System.err
+							.println("Invalid number of command line options!");
+					System.exit(0);
+				}
+				if ("c".equals(args[0])) {
+					FileInputStream in = new FileInputStream(args[1]);
+					FileOutputStream out = new FileOutputStream(args[2]);
+					LZW lzw = new LZW();
+
+					lzw.compress(in, out);
+				} else if ("d".equals(args[0])) {
+					FileInputStream in = new FileInputStream(args[1]);
+					FileOutputStream out = new FileOutputStream(args[2]);
+					LZW lzw = new LZW();
+
+					lzw.decompress(in, out);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
