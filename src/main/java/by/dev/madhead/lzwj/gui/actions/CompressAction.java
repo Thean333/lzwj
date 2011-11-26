@@ -14,13 +14,25 @@ import javax.swing.JOptionPane;
 import by.dev.madhead.lzwj.compress.LZW;
 import by.dev.madhead.lzwj.util.Constants;
 
+/**
+ * Action for performing compression from GUI.
+ * 
+ * @author madhead
+ * 
+ */
 public class CompressAction extends AbstractAction {
 	private static final long serialVersionUID = -8518869396858723952L;
 
+	/**
+	 * Default no-arg constructor.
+	 */
 	public CompressAction() {
 		putValue(Action.NAME, "Compress");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser fileChooser = new JFileChooser();
@@ -42,6 +54,9 @@ public class CompressAction extends AbstractAction {
 						LZW lzw = new LZW();
 
 						lzw.compress(in, out);
+
+						in.close();
+						out.close();
 						JOptionPane.showMessageDialog(null,
 								"Compression succesfully finished!",
 								"Compress", JOptionPane.INFORMATION_MESSAGE);

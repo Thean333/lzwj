@@ -6,6 +6,13 @@ import java.io.InputStream;
 import by.dev.madhead.lzwj.util.Constants;
 import by.dev.madhead.lzwj.util.Euclid;
 
+/**
+ * Class for reading codewords from streams. Handles byte <-> codeword
+ * converions.
+ * 
+ * @author madhead
+ * 
+ */
 public class Input {
 	/**
 	 * Backing input stream.
@@ -53,6 +60,14 @@ public class Input {
 	 */
 	private boolean eof;
 
+	/**
+	 * Constructor for Input.
+	 * 
+	 * @param in
+	 *            backing stream to get bytes from.
+	 * @param codeWordLength
+	 *            size in bits of codewords, stored in <code>in</code>.
+	 */
 	public Input(InputStream in, int codeWordLength) {
 		this.in = in;
 		this.codeWordLength = codeWordLength;
@@ -65,6 +80,12 @@ public class Input {
 		mask = (1 << codeWordLength) - 1;
 	}
 
+	/**
+	 * Reads codeword from backing stream.
+	 * 
+	 * @return next codeword from stream or -1, if nothing more left there.
+	 * @throws IOException
+	 */
 	public int read() throws IOException {
 		if ((bufferedCodes <= 0) && (!eof)) {
 			buf = 0;
@@ -94,6 +115,11 @@ public class Input {
 		}
 	}
 
+	/**
+	 * Closes backing stream.
+	 * 
+	 * @throws IOException
+	 */
 	public void close() throws IOException {
 		in.close();
 	}

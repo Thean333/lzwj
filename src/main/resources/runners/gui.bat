@@ -1,1 +1,1 @@
-start java -jar lzwj.jar g
+start javaw -jar lzwj.jar g

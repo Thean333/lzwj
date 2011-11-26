@@ -8,7 +8,20 @@ import java.io.IOException;
 import by.dev.madhead.lzwj.compress.LZW;
 import by.dev.madhead.lzwj.gui.MainFrame;
 
+/**
+ * Main class of the application.
+ * 
+ * @author madhead
+ * 
+ */
 public class Main {
+	/**
+	 * Application entry point.
+	 * 
+	 * @param args
+	 *            arguments for the application.
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		try {
 			if (args.length < 1) {

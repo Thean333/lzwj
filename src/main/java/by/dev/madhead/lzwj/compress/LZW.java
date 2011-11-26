@@ -14,25 +14,62 @@ import by.dev.madhead.lzwj.io.Input;
 import by.dev.madhead.lzwj.io.Output;
 import by.dev.madhead.lzwj.util.ByteArray;
 
+/**
+ * Class for compressing and decompressing. It is not thread-safe.
+ * 
+ * @author madhead
+ * 
+ */
 public class LZW {
-	public static final int INITIAL_DICT_SIZE = 256; // 0..255
-	public static final int DEFAULT_CODEWORD_LENGTH = 12; // Bit
+	/**
+	 * Initial size of compress table. Before starting LZW compression each byte
+	 * has its mapping set to itself.
+	 */
+	public static final int INITIAL_DICT_SIZE = 256;
+
+	/**
+	 * Size in bits of compressed code.
+	 */
+	public static final int DEFAULT_CODEWORD_LENGTH = 12;
 
 	private int codeWordLength = DEFAULT_CODEWORD_LENGTH;
 	private Map<ByteArray, Integer> codeTable;
 	private List<ByteArray> decodeTable;
 
+	/**
+	 * Returns currently used codeword length.
+	 * 
+	 * @return codeword length.
+	 */
 	public int getCodeWordLength() {
 		return codeWordLength;
 	}
 
+	/**
+	 * Sets codeword length in bits to be used in compress/decompress
+	 * operations.
+	 * 
+	 * @param codeWordLength
+	 *            codeword length in bits to be used in compress/decompress
+	 *            operations.
+	 */
 	public void setCodeWordLength(int codeWordLength) {
 		// Haha! Expected this method do something useful, didn't you?
 		// this.codeWordLength = codeWordLength;
 	}
 
-	// Here be dragons!
+	/**
+	 * Compresses <code>in</code> to <code>out</code>. Flushes output after
+	 * completion. You must explicitly close this streams after compression.
+	 * 
+	 * @param in
+	 *            input stream to be compressed.
+	 * @param out
+	 *            output stream to place compression result in.
+	 * @throws IOException
+	 */
 	public void compress(InputStream in, OutputStream out) throws IOException {
+		// Here be dragons!
 		init();
 
 		int code = INITIAL_DICT_SIZE;
@@ -59,9 +96,18 @@ public class LZW {
 		}
 		compressedOutput.write(codeTable.get(w));
 		compressedOutput.flush();
-		compressedOutput.close();
 	}
 
+	/**
+	 * Decompresses <code>in</code> to <code>out</code>. Flushes output after
+	 * completion. You must explicitly close this streams after compression.
+	 * 
+	 * @param in
+	 *            input stream to be decompressed.
+	 * @param out
+	 *            output stream to place decompression result in.
+	 * @throws IOException
+	 */
 	public void decompress(InputStream in, OutputStream out) throws IOException {
 		init();
 
@@ -91,9 +137,11 @@ public class LZW {
 		}
 
 		bufferedOut.flush();
-		bufferedOut.close();
 	}
 
+	/**
+	 * Initializes class for compression and decompression.
+	 */
 	private void init() {
 		codeTable = new HashMap<ByteArray, Integer>();
 		decodeTable = new ArrayList<ByteArray>();

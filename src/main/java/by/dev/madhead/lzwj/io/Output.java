@@ -6,6 +6,12 @@ import java.io.OutputStream;
 import by.dev.madhead.lzwj.util.Constants;
 import by.dev.madhead.lzwj.util.Euclid;
 
+/**
+ * Class for writing codewords to streams. Handles codeword <-> byte converions.
+ * 
+ * @author madhead
+ * 
+ */
 public class Output {
 	/**
 	 * Backing output stream.
@@ -50,6 +56,14 @@ public class Output {
 	 */
 	private int bufUsageSymbols;
 
+	/**
+	 * Constructor for Output.
+	 * 
+	 * @param out
+	 *            backing stream to write bytes to.
+	 * @param codeWordLength
+	 *            size in bits of codewords, stored in <code>out</code>.
+	 */
 	public Output(OutputStream out, int codeWordLength) {
 		this.out = out;
 		this.codeWordLength = codeWordLength;
@@ -62,6 +76,13 @@ public class Output {
 		mask = (1 << codeWordLength) - 1;
 	}
 
+	/**
+	 * Writes codeword to backing stream.
+	 * 
+	 * @param code
+	 *            codeword to write to backing stream.
+	 * @throws IOException
+	 */
 	public void write(int code) throws IOException {
 		// Did you know, that Java is big-endian?
 		code = (code & mask) << ((written) * codeWordLength);
@@ -77,6 +98,11 @@ public class Output {
 		}
 	}
 
+	/**
+	 * Writes any buffered codewords to the stream and flushes it.
+	 * 
+	 * @throws IOException
+	 */
 	public void flush() throws IOException {
 		while ((written < bufUsageSymbols) && (written != 0)) {
 			write(-1);
@@ -84,6 +110,11 @@ public class Output {
 		out.flush();
 	}
 
+	/**
+	 * Closes backing stream.
+	 * 
+	 * @throws IOException
+	 */
 	public void close() throws IOException {
 		out.close();
 	}

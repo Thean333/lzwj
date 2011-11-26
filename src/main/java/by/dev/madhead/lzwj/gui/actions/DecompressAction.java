@@ -16,11 +16,25 @@ import javax.swing.filechooser.FileFilter;
 import by.dev.madhead.lzwj.compress.LZW;
 import by.dev.madhead.lzwj.util.Constants;
 
+/**
+ * Action for performing decompression from GUI.
+ * 
+ * @author madhead
+ * 
+ */
 public class DecompressAction extends AbstractAction {
+	private static final long serialVersionUID = -1216000901898029741L;
+
+	/**
+	 * Default no-arg constructor.
+	 */
 	public DecompressAction() {
 		putValue(Action.NAME, "Decompress");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser sourceFileChooser = new JFileChooser();
@@ -61,6 +75,9 @@ public class DecompressAction extends AbstractAction {
 							LZW lzw = new LZW();
 
 							lzw.decompress(in, out);
+
+							in.close();
+							out.close();
 							JOptionPane.showMessageDialog(null,
 									"Decompression succesfully finished!",
 									"Decompress",

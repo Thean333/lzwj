@@ -10,6 +10,12 @@ import javax.swing.JFrame;
 import by.dev.madhead.lzwj.gui.actions.CompressAction;
 import by.dev.madhead.lzwj.gui.actions.DecompressAction;
 
+/**
+ * Main window for GUI mode.
+ * 
+ * @author madhead
+ * 
+ */
 public class MainFrame extends JFrame {
 	private static final int DEFAULT_WIDTH = 500;
 	private static final int DEFAULT_HEIGHT = 100;
@@ -20,6 +26,9 @@ public class MainFrame extends JFrame {
 	private Action compressAction;
 	private Action decompressAction;
 
+	/**
+	 * Default no-arg constructor.
+	 */
 	public MainFrame() {
 		compressAction = new CompressAction();
 		decompressAction = new DecompressAction();
@@ -37,6 +46,9 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Utility method for centerizing frame on screen.
+	 */
 	private void centerize() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		int screenWidth = toolkit.getScreenSize().width;
