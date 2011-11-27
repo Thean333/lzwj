@@ -1,0 +1,1 @@
+mvn clean package -Pjar-with-dependencies & mvn package -Pdistro
