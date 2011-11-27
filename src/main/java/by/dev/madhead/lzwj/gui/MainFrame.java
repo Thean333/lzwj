@@ -2,7 +2,10 @@ package by.dev.madhead.lzwj.gui;
 
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,6 +42,12 @@ public class MainFrame extends JFrame {
 		centerize();
 		this.setResizable(false);
 		this.setTitle(DEFAULT_CAPTION);
+		try {
+			BufferedImage image = null;
+			image = ImageIO.read(MainFrame.class.getResource("icon.png"));
+			this.setIconImage(image);
+		} catch (IOException e) {
+		}
 		this.setLayout(new FlowLayout());
 		this.add(btnCompress);
 		this.add(btnDecompress);
