@@ -48,7 +48,7 @@ public class DecompressAction extends AbstractAction {
 
 			@Override
 			public boolean accept(File f) {
-				if (f.getName().endsWith(Constants.COMPRESSED_FILE_SUFFIX)) {
+				if ((f.getName().endsWith(Constants.COMPRESSED_FILE_SUFFIX)) || (f.isDirectory())) {
 					return true;
 				}
 				return false;
