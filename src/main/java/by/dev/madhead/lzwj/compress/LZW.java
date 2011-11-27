@@ -73,6 +73,7 @@ public class LZW {
 		init();
 
 		int code = INITIAL_DICT_SIZE;
+		int maxCode = (1 << codeWordLength) - 1;
 
 		InputStream bufferedIn = new BufferedInputStream(in);
 		Output compressedOutput = new Output(new BufferedOutputStream(out),
@@ -88,7 +89,7 @@ public class LZW {
 				w = wK;
 			} else {
 				compressedOutput.write(codeTable.get(w));
-				if (code < (1 << codeWordLength) - 1) {
+				if (code < maxCode) {
 					codeTable.put(wK, code++);
 				}
 				w = new ByteArray((byte) K);

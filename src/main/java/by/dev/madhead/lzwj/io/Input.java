@@ -105,7 +105,7 @@ public class Input {
 			int code = (int) (buf & mask);
 			buf >>= codeWordLength;
 			bufferedCodes--;
-			if (code < (1 << codeWordLength) - 1) {
+			if (code < mask) {
 				return code;
 			} else {
 				return -1;
